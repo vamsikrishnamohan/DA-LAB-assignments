@@ -1,0 +1,81 @@
+
+ROTATING A IMAGE THROUGH MATRIX MULTIPLICATION (LINEAR TRANSFORMATION):
+  a. BY 90 DEGREE ANGLE 
+  b. HORIZONTAL FLIP
+   # -*- coding: utf-8 -*-
+
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import os
+
+df=pd.read_csv("C:/Users/krish/Downloads/Default Dataset (3).csv")
+df
+
+"""# DATA CLEANING"""
+
+df1=df.round()
+df1
+
+df1=df1.astype(int)
+df1
+
+df.size,df.shape,df.ndim
+
+df.isnull().sum()
+
+sns.heatmap(df.isnull())
+
+df1.dropna()
+
+df1.interpolate()
+
+df1.duplicated().sum()
+
+"""# PLOTTING CLEAN DATA"""
+
+df1.plot.scatter(x="X",y= "Y")
+
+"""# TRANFORMATION"""
+
+tranform_matrix =np.zeros((1000,1000),dtype=int)   ## linear transformation matrix
+j=999
+for i in range(1000):
+  tranform_matrix[i][j]=1
+  j-=1
+tranform_matrix
+
+Data_array=np.zeros((1000,1000),dtype=int)
+Data_array
+
+for ind in df1.index:
+    Data_array[df1["X"][ind]][df1["Y"][ind]]=1      ## Creating a sparse matrix where our data points matches
+Data_array
+
+Data_array[71][85]       ## checking sparse matrix
+
+"""# 90 Degree Rotation"""
+
+rotate_90 = np.dot(np.transpose(arr),t)  ## Matrix Multiplication for 90 degree rotation
+
+# Find the coordinates of the 1s in arr1
+x_coords, y_coords = np.where(rotate_90 == 1)
+
+# Plotting the scatter plot
+plt.scatter(x_coords, y_coords)
+
+plt.show()
+
+"""# Horizontal Flip"""
+
+flip_image = np.dot(arr,t)         ## Matrix Multiplication for  Horizontal Flip
+
+x_coords, y_coords = np.where(flip_image  == 1)
+
+# Plotting the scatter plot
+plt.scatter(x_coords, y_coords)
+
+plt.show()
+
